@@ -37,15 +37,20 @@ const closeModalCreateUpdate = () => {
 // -CRUD-------
 
 // DELETE
-const deletePal = (index) => {
+const deletePal = (id) => {
     const dbPal = readPal()
-    dbPal.splice(index, 1)
+    for (let index = 0; index < dbPal.length; index++) {
+        let element = dbPal[index];
+        if(element.id.includes(id)){
+            dbPal.splice(index, 1)
+            break
+        }
+    }
     setLocalStorage(dbPal)
 }
 
 // UPDATE
 const updatePal = (pal) => {
-    debugger
     const dbPal = readPal()
     for (let index = 0; index < dbPal.length; index++) {
         let element = dbPal[index];
@@ -90,7 +95,6 @@ const clearFields = () => {
 // Cadastrar Pal
 
 const savePal = () =>{
-    debugger
     let newPal = null
     let pal = null
     if(document.getElementById('palInput').dataset.index){
@@ -163,7 +167,6 @@ const savePal = () =>{
 }
 
 function getPal(id){
-    debugger
     const dbPal = readPal()
     for (let index = 0; index < dbPal.length; index++) {
         const element = dbPal[index];
@@ -240,7 +243,6 @@ const fillFields = (pal) => {
 }
 
 const editPal = (id) => {
-    debugger
     const pal = getPal(id)
     fillFields(pal)
     openModalCreateUpdate()
@@ -267,7 +269,7 @@ const editDelete = (event) =>{
 
         // APAGAR O REGISTRO
             document.getElementById('delete').addEventListener('click', () => {
-                deletePal(index)
+                deletePal(id)
                 updateTable()
                 closeModalDelete()
             })
