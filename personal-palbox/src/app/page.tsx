@@ -20,6 +20,7 @@ export default async function Home() {
             <DataTable columns={columns} />
           </ScrollArea>
         </Card>
+        
       </div>
     </main>
   );
